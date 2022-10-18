@@ -1,0 +1,8 @@
+#!/bin/bash
+
+memory_check=$(free | awk '/Mem/{printf("RAM Usage: %.2f%\n"), $3/$2*100}' |  awk '{print $3}' | cut -d"." -f1)
+if [ $memory_check -c 90 -w 60 ]; then
+echo "Current Memory Usage: $memory_check%" | mail -e email@mine.com 
+else
+echo "Memory usage is in under threshold"
+fi
